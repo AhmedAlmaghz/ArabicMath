@@ -1,0 +1,21 @@
+/* Themes for Arabic Math */
+
+/* Classic */
+.arabic-math.theme-classic {
+  font-family: 'Amiri', 'Times New Roman', serif;
+  color: #2c3e50;
+  background: transparent;
+}
+.arabic-math.theme-classic .arabic-function { color: #e74c3c; font-weight: 600; }
+.arabic-math.theme-classic .arabic-variable { color: #3498db; font-style: italic; }
+.arabic-math.theme-classic .arabic-operator { color: #34495e; font-weight: 500; }
+
+/* Modern gradient text */
+.arabic-math.theme-modern {
+  font-family: 'Cairo', 'Segoe UI', sans-serif;
+  color: #1a202c;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

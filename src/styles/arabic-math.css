@@ -1,0 +1,23 @@
+/* Arabic Math base styles */
+.arabic-math {
+  direction: rtl;
+  unicode-bidi: isolate-override;
+  font-family: 'Amiri', 'Cairo', 'Times New Roman', serif;
+  line-height: 1.8;
+  color: #2c3e50;
+}
+
+.arabic-math .arabic-function { color: #e74c3c; font-weight: 600; }
+.arabic-math .arabic-variable { color: #3498db; font-style: italic; }
+.arabic-math .arabic-operator { color: #34495e; font-weight: 500; }
+
+/* Simple blocks */
+.arabic-math .block { display: block; margin: 0.5rem 0; }
+.arabic-math .inline { display: inline-block; }
+
+/* Error style */
+.arabic-math .validation-error { background: #fff5f5; color: #c53030; border: 1px solid #fed7d7; padding: 8px 12px; border-radius: 6px; }
+
+/* Utils */
+.rtl { direction: rtl; unicode-bidi: isolate-override; }
+.ltr { direction: ltr; unicode-bidi: isolate; }

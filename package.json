@@ -1,0 +1,50 @@
+{
+  "name": "arabic-math-js",
+  "version": "0.1.0",
+  "description": "Arabic Math JS: translate and render math expressions in Arabic with RTL support.",
+  "main": "dist/arabic-math.js",
+  "module": "dist/arabic-math.js",
+  "types": "types/index.d.ts",
+  "files": [
+    "dist/",
+    "types/",
+    "src/",
+    "security/",
+    "tools/",
+    "examples/"
+  ],
+  "scripts": {
+    "dev": "node tools/serve.js",
+    "build": "node tools/build.js",
+    "build:advanced": "node tools/build-advanced.js",
+    "audit": "node security/audit-script.js",
+    "test:perf": "echo Run performance tests in browser via examples/interactive-demo.html or tests/performance/benchmark.js"
+  },
+  "keywords": ["math", "arabic", "rtl", "equations", "latex"],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.0",
+    "clean-css": "^5.3.3",
+    "rollup": "^4.18.0",
+    "sass": "^1.77.0",
+    "terser": "^5.31.0",
+    "typescript": "^5.5.4",
+    "webpack": "^5.93.0",
+    "webpack-cli": "^5.1.4"
+  }
+}

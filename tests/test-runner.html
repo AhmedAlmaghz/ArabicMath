@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arabic Math JS — Test Runner</title>
+  <link rel="stylesheet" href="../src/styles/arabic-math.css" />
+  <style>
+    body { font-family: 'Amiri', serif; background: #f1f5f9; margin: 0; padding: 16px; }
+    .card { background: #fff; border-radius: 10px; padding: 16px; box-shadow: 0 6px 16px rgba(0,0,0,.06); margin-bottom: 16px; }
+    pre { background: #0f172a; color: #e2e8f0; padding: 12px; border-radius: 8px; overflow: auto; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .btn { background: #2563eb; color: #fff; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Arabic Math JS — Test Runner</h1>
+    <p>تشغيل اختبارات بسيطة وأداء</p>
+  </div>
+
+  <div class="card row">
+    <div>
+      <h3>عرض بسيط</h3>
+      <div id="out" class="arabic-math" style="min-height: 80px; border: 1px dashed #cbd5e1; padding: 12px;"></div>
+      <button id="btnRender" class="btn">عرض مثال</button>
+    </div>
+    <div>
+      <h3>أداء</h3>
+      <div id="perf-out" style="min-height: 80px; border: 1px dashed #cbd5e1; padding: 12px;"></div>
+      <button id="btnBench" class="btn">تشغيل Benchmark</button>
+      <pre id="log"></pre>
+    </div>
+  </div>
+
+  <script src="../src/dictionaries/symbols.js"></script>
+  <script src="../src/core/translator.js"></script>
+  <script src="../src/core/parser.js"></script>
+  <script src="../src/core/renderer.js"></script>
+  <script src="../src/utils/rtl-handler.js"></script>
+  <script src="../src/ArabicMath.js"></script>
+  <script src="./performance/benchmark.js"></script>
+  <script>
+    const am = new ArabicMath({ rtl: true, autoTranslate: true });
+    document.getElementById('btnRender').addEventListener('click', () => {
+      am.render('#out', 'int_0^1 x^2 dx = 1/3');
+    });
+    document.getElementById('btnBench').addEventListener('click', () => {
+      runBenchmark({ iterations: 1000 });
+    });
+  </script>
+</body>
+</html>
