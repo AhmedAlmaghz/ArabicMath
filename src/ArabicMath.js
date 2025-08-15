@@ -34,7 +34,10 @@
           rtl: true,
           autoTranslate: true,
           mathRenderer: 'none', // 'none' | 'mathjax' | 'katex'
-          defaultTarget: null
+          defaultTarget: null,
+          // Optional: pre-translate input before handing to MathJax/KaTeX
+          // applyRTL=false by default to avoid affecting TeX parsing
+          preTranslate: { mathjax: false, katex: false, applyRTL: false }
         },
         options
       );
@@ -68,19 +71,35 @@
 
       // Translate if needed
       let text = String(equation || '');
+      const engine = options.mathRenderer || 'none';
+      const pt = options.preTranslate || {};
       if (options.autoTranslate) {
-        text = this.translate(text);
+        if (engine === 'none') {
+          const translated = this.translator.translate(text);
+          text = options.rtl ? RTL.ensureRTL(translated) : translated;
+        } else if ((engine === 'mathjax' && pt.mathjax) || (engine === 'katex' && pt.katex)) {
+          // SAFE pre-translation for TeX engines: only convert digits
+          let translated = this.translator.translateNumbers(text);
+          if (options.rtl && pt.applyRTL) translated = RTL.ensureRTL(translated);
+          text = translated;
+        }
       }
 
       // Parse (stub-safe)
       const ast = this.parser.parse(text);
 
       // Render
-      const context = { targetElement: el, options, version: VERSION };
+      const context = { targetElement: el, options, version: VERSION, equation: text };
       this.emit('before:render', { equation: text, context });
-      this.renderer.render(ast, context);
+      const result = this.renderer.render(ast, context);
+      // If renderer returns a Promise (e.g., MathJax typesetting), wait for it
+      if (result && typeof result.then === 'function') {
+        return result.then((value) => {
+          this.emit('after:render', { equation: text, context });
+          return value || el;
+        });
+      }
       this.emit('after:render', { equation: text, context });
-
       return el;
     }
 

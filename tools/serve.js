@@ -7,10 +7,28 @@ const fs = require('fs');
 const chokidar = require('chokidar');
 const WebSocket = require('ws');
 
+// Simple CLI args parser for --port and --host
+function parseArgs(argv = []) {
+    const out = {};
+    for (let i = 0; i < argv.length; i++) {
+        const a = argv[i];
+        if (a === '--port' && argv[i + 1]) {
+            out.port = Number(argv[++i]);
+        } else if (a.startsWith('--port=')) {
+            out.port = Number(a.split('=')[1]);
+        } else if (a === '--host' && argv[i + 1]) {
+            out.host = argv[++i];
+        } else if (a.startsWith('--host=')) {
+            out.host = a.split('=')[1];
+        }
+    }
+    return out;
+}
+
 class DevServer {
     constructor(options = {}) {
-        this.port = options.port || 3000;
-        this.host = options.host || 'localhost';
+        this.port = options.port || Number(process.env.PORT) || 3000;
+        this.host = options.host || process.env.HOST || 'localhost';
         this.app = express();
         this.wss = null;
         
@@ -222,7 +240,8 @@ class DevServer {
 
 // تشغيل الخادم إذا تم استدعاء الملف مباشرة
 if (require.main === module) {
-    const server = new DevServer();
+    const cli = parseArgs(process.argv.slice(2));
+    const server = new DevServer(cli);
     server.start();
 }
 

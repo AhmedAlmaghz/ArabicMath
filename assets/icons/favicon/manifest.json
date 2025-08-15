@@ -1,0 +1,26 @@
+{
+  "name": "Arabic Math JS",
+  "short_name": "ArabicMath",
+  "description": "مكتبة الرياضيات العربية",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#667eea",
+  "icons": [
+    {
+      "src": "assets/icons/favicon/favicon-16x16.svg",
+      "sizes": "16x16",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "assets/icons/favicon/favicon-32x32.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "assets/icons/favicon/favicon-48x48.svg",
+      "sizes": "48x48",
+      "type": "image/svg+xml"
+    }
+  ]
+}

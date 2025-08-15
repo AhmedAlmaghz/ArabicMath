@@ -1,0 +1,39 @@
+{
+  "name": "Arabic Math JS Icons",
+  "version": "1.0.0",
+  "description": "مجموعة أيقونات مكتبة الرياضيات العربية",
+  "icons": {
+    "svg": {
+      "main": "assets/icons/svg/icon-main.svg",
+      "dark": "assets/icons/svg/icon-dark.svg",
+      "light": "assets/icons/svg/icon-light.svg"
+    },
+    "png": {
+      "sizes": [
+        16,
+        32,
+        48,
+        64,
+        128,
+        256,
+        512
+      ],
+      "path": "assets/icons/png/{size}x{size}/icon.png"
+    },
+    "favicon": {
+      "ico": "assets/icons/favicon/favicon.ico",
+      "svg": "assets/icons/favicon/favicon.svg",
+      "manifest": "assets/icons/favicon/manifest.json"
+    },
+    "logos": {
+      "main": "assets/logos/logo.svg",
+      "simple": "assets/logos/logo-simple.svg"
+    }
+  },
+  "usage": {
+    "web": "استخدم favicon.svg للمواقع الإلكترونية",
+    "app": "استخدم manifest.json للتطبيقات التقدمية",
+    "print": "استخدم logo.svg للمواد المطبوعة",
+    "social": "استخدم icon-main.svg لوسائل التواصل"
+  }
+}

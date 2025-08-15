@@ -1,0 +1,172 @@
+/**
+ * محمل الخطوط العربية للرياضيات
+ */
+
+/* خط أميري للرياضيات */
+@font-face {
+    font-family: 'Amiri Math';
+    src: url('amiri-quran.woff2') format('woff2'),
+         url('amiri-quran.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+/* خط القاهرة للعناوين */
+@font-face {
+    font-family: 'Cairo Math';
+    src: url('cairo-regular.woff2') format('woff2'),
+         url('cairo-regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0600-06FF, U+0750-077F;
+}
+
+@font-face {
+    font-family: 'Cairo Math';
+    src: url('cairo-bold.woff2') format('woff2'),
+         url('cairo-bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0600-06FF, U+0750-077F;
+}
+
+/* خط شهرزاد الجديد للنصوص الطويلة */
+@font-face {
+    font-family: 'Scheherazade Math';
+    src: url('scheherazade-new-regular.woff2') format('woff2'),
+         url('scheherazade-new-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF, U+FB50-FDFF, U+FE70-FEFF;
+}
+
+/* خط ناسك للواجهات الحديثة */
+@font-face {
+    font-family: 'Nask Math';
+    src: url('noto-sans-arabic.woff2') format('woff2'),
+         url('noto-sans-arabic.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+    unicode-range: U+0600-06FF, U+0750-077F;
+}
+
+/* متغيرات CSS للخطوط */
+:root {
+    --font-arabic-serif: 'Amiri Math', 'Times New Roman', serif;
+    --font-arabic-sans: 'Cairo Math', 'Arial', sans-serif;
+    --font-arabic-display: 'Scheherazade Math', 'Georgia', serif;
+    --font-arabic-ui: 'Nask Math', 'Segoe UI', sans-serif;
+    
+    /* أحجام الخطوط */
+    --font-size-small: 0.875rem;    /* 14px */
+    --font-size-base: 1rem;         /* 16px */
+    --font-size-large: 1.125rem;    /* 18px */
+    --font-size-xl: 1.25rem;        /* 20px */
+    --font-size-2xl: 1.5rem;        /* 24px */
+    --font-size-3xl: 2rem;          /* 32px */
+    
+    /* أوزان الخطوط */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+}
+
+/* فئات مساعدة للخطوط */
+.font-arabic-serif {
+    font-family: var(--font-arabic-serif);
+}
+
+.font-arabic-sans {
+    font-family: var(--font-arabic-sans);
+}
+
+.font-arabic-display {
+    font-family: var(--font-arabic-display);
+}
+
+.font-arabic-ui {
+    font-family: var(--font-arabic-ui);
+}
+
+/* تحسينات للخطوط العربية */
+.arabic-text {
+    font-feature-settings: 'liga' 1, 'calt' 1, 'ccmp' 1, 'curs' 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    direction: rtl;
+    text-align: right;
+}
+
+/* تحسينات خاصة بالرياضيات */
+.math-arabic-text {
+    font-variant-numeric: oldstyle-nums;
+    font-feature-settings: 'kern' 1, 'liga' 1, 'clig' 1, 'calt' 1;
+}
+
+/* دعم الخطوط المتغيرة */
+@supports (font-variation-settings: normal) {
+    .font-variable {
+        font-variation-settings: 'wght' 400, 'slnt' 0;
+        transition: font-variation-settings 0.2s ease;
+    }
+    
+    .font-variable:hover {
+        font-variation-settings: 'wght' 500, 'slnt' 0;
+    }
+}
+
+/* تحسين عرض الخطوط على الشاشات عالية الدقة */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .arabic-text {
+        -webkit-font-smoothing: subpixel-antialiased;
+    }
+}
+
+/* تحسينات للطباعة */
+@media print {
+    .arabic-text {
+        font-family: 'Amiri Math', serif;
+        font-size: 12pt;
+        line-height: 1.6;
+        color: black;
+        text-shadow: none;
+    }
+}
+
+/* تحميل تفاعلي للخطوط */
+.font-loading {
+    font-family: 'Arial', sans-serif;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.font-loaded {
+    opacity: 1;
+}
+
+/* رسالة عدم دعم الخطوط */
+.font-fallback-warning {
+    display: none;
+    background: #fff3cd;
+    border: 1px solid #ffeeba;
+    color: #856404;
+    padding: 10px;
+    border-radius: 4px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+@supports not (font-feature-settings: 'liga') {
+    .font-fallback-warning {
+        display: block;
+    }
+}

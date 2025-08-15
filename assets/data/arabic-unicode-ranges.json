@@ -1,0 +1,241 @@
+{
+    "name": "Arabic Unicode Ranges for Math",
+    "description": "نطاقات يونيكود للأحرف العربية والرموز الرياضية",
+    "version": "1.0.0",
+    "ranges": {
+      "arabic_basic": {
+        "name": "الأحرف العربية الأساسية",
+        "range": "U+0600-06FF",
+        "description": "الأحرف العربية والفارسية الأساسية",
+        "characters_count": 255,
+        "includes": [
+          "الحروف العربية (ا-ي)",
+          "علامات التشكيل",
+          "علامات الترقيم العربية",
+          "الأرقام العربية الهندية"
+        ]
+      },
+      "arabic_supplement": {
+        "name": "الملحق العربي",
+        "range": "U+0750-077F",
+        "description": "أحرف عربية إضافية",
+        "characters_count": 48,
+        "includes": [
+          "أحرف عربية نادرة",
+          "أحرف للغات أفريقية"
+        ]
+      },
+      "arabic_extended_a": {
+        "name": "العربية الموسعة أ",
+        "range": "U+08A0-08FF",
+        "description": "أحرف عربية موسعة",
+        "characters_count": 96,
+        "includes": [
+          "أحرف للهجات المحلية",
+          "رموز إضافية"
+        ]
+      },
+      "arabic_presentation_forms_a": {
+        "name": "أشكال العرض العربية أ",
+        "range": "U+FB50-FDFF",
+        "description": "الأشكال المتصلة للحروف العربية",
+        "characters_count": 688,
+        "includes": [
+          "الحروف المتصلة",
+          "الحروف المنفصلة",
+          "التراكيب الخاصة"
+        ]
+      },
+      "arabic_presentation_forms_b": {
+        "name": "أشكال العرض العربية ب",
+        "range": "U+FE70-FEFF",
+        "description": "أشكال إضافية للحروف العربية",
+        "characters_count": 144,
+        "includes": [
+          "أشكال الحروف في المواضع المختلفة",
+          "علامات التشكيل المتصلة"
+        ]
+      },
+      "mathematical_symbols": {
+        "name": "الرموز الرياضية",
+        "range": "U+2200-22FF",
+        "description": "الرموز الرياضية الأساسية",
+        "characters_count": 256,
+        "includes": [
+          "عوامل التشغيل (∀, ∃, ∈, ∉)",
+          "العلاقات (≤, ≥, ≠, ≈)",
+          "العمليات (∪, ∩, ⊂, ⊃)",
+          "التكامل والمجاميع (∫, ∑, ∏)"
+        ]
+      },
+      "mathematical_operators": {
+        "name": "عوامل التشغيل الرياضية",
+        "range": "U+2190-21FF",
+        "description": "الأسهم والعوامل",
+        "characters_count": 112,
+        "includes": [
+          "الأسهم (←, →, ↔, ⇒)",
+          "الأسهم المركبة",
+          "رموز الاتجاه"
+        ]
+      }
+    },
+    "math_specific": {
+      "common_symbols": {
+        "π": {
+          "unicode": "U+03C0",
+          "name": "pi",
+          "arabic": "π"
+        },
+        "∞": {
+          "unicode": "U+221E",
+          "name": "infinity", 
+          "arabic": "∞"
+        },
+        "∫": {
+          "unicode": "U+222B",
+          "name": "integral",
+          "arabic": "∫"
+        },
+        "∑": {
+          "unicode": "U+2211",
+          "name": "summation",
+          "arabic": "∑"
+        },
+        "∏": {
+          "unicode": "U+220F", 
+          "name": "product",
+          "arabic": "∏"
+        },
+        "√": {
+          "unicode": "U+221A",
+          "name": "square root",
+          "arabic": "√"
+        },
+        "∂": {
+          "unicode": "U+2202",
+          "name": "partial derivative",
+          "arabic": "∂"
+        },
+        "∇": {
+          "unicode": "U+2207",
+          "name": "nabla",
+          "arabic": "∇"
+        }
+      },
+      "arrows": {
+        "→": {
+          "unicode": "U+2192",
+          "name": "rightwards arrow",
+          "arabic_equivalent": "←",
+          "rtl_flip": true
+        },
+        "←": {
+          "unicode": "U+2190", 
+          "name": "leftwards arrow",
+          "arabic_equivalent": "→",
+          "rtl_flip": true
+        },
+        "↔": {
+          "unicode": "U+2194",
+          "name": "left right arrow",
+          "arabic_equivalent": "↔",
+          "rtl_flip": false
+        },
+        "⇒": {
+          "unicode": "U+21D2",
+          "name": "rightwards double arrow",
+          "arabic_equivalent": "⇐",
+          "rtl_flip": true
+        },
+        "⇐": {
+          "unicode": "U+21D0",
+          "name": "leftwards double arrow", 
+          "arabic_equivalent": "⇒",
+          "rtl_flip": true
+        }
+      },
+      "relations": {
+        "=": {
+          "unicode": "U+003D",
+          "name": "equals",
+          "arabic": "="
+        },
+        "≠": {
+          "unicode": "U+2260",
+          "name": "not equal",
+          "arabic": "≠"
+        },
+        "≈": {
+          "unicode": "U+2248",
+          "name": "approximately equal",
+          "arabic": "≈"
+        },
+        "≡": {
+          "unicode": "U+2261",
+          "name": "equivalent",
+          "arabic": "≡"
+        },
+        "≤": {
+          "unicode": "U+2264",
+          "name": "less than or equal",
+          "arabic": "≤"
+        },
+        "≥": {
+          "unicode": "U+2265",
+          "name": "greater than or equal",
+          "arabic": "≥"
+        }
+      }
+    },
+    "fonts_support": {
+      "recommended_fonts": [
+        {
+          "name": "Amiri",
+          "type": "serif",
+          "math_support": "excellent",
+          "unicode_coverage": ["arabic_basic", "arabic_presentation_forms_a", "arabic_presentation_forms_b"],
+          "best_for": "traditional mathematical texts"
+        },
+        {
+          "name": "Cairo",
+          "type": "sans-serif", 
+          "math_support": "good",
+          "unicode_coverage": ["arabic_basic"],
+          "best_for": "modern interfaces"
+        },
+        {
+          "name": "Scheherazade New",
+          "type": "serif",
+          "math_support": "excellent", 
+          "unicode_coverage": ["arabic_basic", "arabic_supplement", "arabic_extended_a"],
+          "best_for": "comprehensive Arabic text"
+        },
+        {
+          "name": "Noto Sans Arabic",
+          "type": "sans-serif",
+          "math_support": "fair",
+          "unicode_coverage": ["arabic_basic"],
+          "best_for": "web interfaces"
+        }
+      ],
+      "fallback_sequence": [
+        "'Amiri'",
+        "'Times New Roman'", 
+        "'Arial Unicode MS'",
+        "serif"
+      ]
+    },
+    "validation": {
+      "required_characters": [
+        "ا", "ب", "ت", "ث", "ج", "ح", "خ", "د", "ذ", "ر", "ز", "س", "ش", "ص", "ض", "ط", "ظ", "ع", "غ", "ف", "ق", "ك", "ل", "م", "ن", "ه", "و", "ي"
+      ],
+      "required_numbers": [
+        "٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"
+      ],
+      "required_math_symbols": [
+        "π", "∞", "∫", "∑", "∏", "√", "∂", "∇", "≤", "≥", "≠", "≈", "≡"
+      ]
+    }
+  }
+  

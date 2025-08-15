@@ -1,66 +1,132 @@
-(function (root, factory) {
-  if (typeof module === 'object' && module.exports) {
-    module.exports = factory();
-  } else {
-    root.ArabicMathParser = factory();
-  }
-})(typeof self !== 'undefined' ? self : this, function () {
-  'use strict';
-
-  class Parser {
-    constructor(options = {}) {
-      this.options = Object.assign({ strict: false }, options);
+/**
+ * محلل المعادلات الرياضية
+ * يحول النص إلى هيكل بيانات قابل للمعالجة
+ */
+class MathParser {
+    constructor() {
+        this.tokenTypes = {
+            FUNCTION: 'function',
+            VARIABLE: 'variable',
+            NUMBER: 'number',
+            OPERATOR: 'operator',
+            SYMBOL: 'symbol',
+            BRACKET: 'bracket',
+            LATEX_COMMAND: 'latex_command'
+        };
     }
-
-    parse(equation) {
-      const text = String(equation || '');
-      const issues = this._basicChecks(text);
-      return {
-        type: 'Equation',
-        raw: text,
-        issues
-      };
+    
+    /**
+     * تحليل المعادلة الرياضية
+     * @param {string} input - النص المدخل
+     * @returns {Array} مصفوفة من الرموز المحللة
+     */
+    parse(input) {
+        // تنظيف النص المدخل
+        const cleaned = this.preprocess(input);
+        
+        // تقسيم إلى رموز
+        const tokens = this.tokenize(cleaned);
+        
+        // تحليل تركيبي
+        const ast = this.buildAST(tokens);
+        
+        return ast;
     }
-
-    validate(equation) {
-      const text = String(equation || '');
-      const { errors, warnings } = this._basicChecks(text);
-      return {
-        valid: errors.length === 0,
-        errors,
-        warnings
-      };
+    
+    preprocess(input) {
+        return input
+            .replace(/\s+/g, ' ')           // توحيد المسافات
+            .replace(/\\,/g, ' ')           // مسافات LaTeX
+            .replace(/\\!/g, '')            // إزالة المسافات السالبة
+            .trim();
     }
-
-    _basicChecks(text) {
-      const errors = [];
-      const warnings = [];
-
-      // Bracket balance check for (), {}, []
-      const pairs = { '(': ')', '{': '}', '[': ']' };
-      const stack = [];
-      for (let i = 0; i < text.length; i++) {
-        const ch = text[i];
-        if (pairs[ch]) stack.push(ch);
-        else if (Object.values(pairs).includes(ch)) {
-          const open = stack.pop();
-          if (!open || pairs[open] !== ch) {
-            errors.push(`Unbalanced bracket near index ${i}`);
-            break;
-          }
+    
+    tokenize(input) {
+        const tokens = [];
+        const patterns = [
+            { type: this.tokenTypes.LATEX_COMMAND, regex: /\\[a-zA-Z]+\*?/g },
+            { type: this.tokenTypes.FUNCTION, regex: /\b(sin|cos|tan|log|ln|exp|sqrt|lim|sum|prod|int)\b/g },
+            { type: this.tokenTypes.NUMBER, regex: /\d+\.?\d*/g },
+            { type: this.tokenTypes.VARIABLE, regex: /\b[a-zA-Z]\b/g },
+            { type: this.tokenTypes.OPERATOR, regex: /[+\-*/=<>≤≥≠≈]/g },
+            { type: this.tokenTypes.SYMBOL, regex: /[∫∑∏√∞π∂∇]/g },
+            { type: this.tokenTypes.BRACKET, regex: /[(){}\[\]]/g }
+        ];
+        
+        let position = 0;
+        while (position < input.length) {
+            let matched = false;
+            
+            for (const pattern of patterns) {
+                pattern.regex.lastIndex = position;
+                const match = pattern.regex.exec(input);
+                
+                if (match && match.index === position) {
+                    tokens.push({
+                        type: pattern.type,
+                        value: match[0],
+                        position: position
+                    });
+                    position = match.index + match[0].length;
+                    matched = true;
+                    break;
+                }
+            }
+            
+            if (!matched) {
+                position++;
+            }
         }
-      }
-      if (stack.length) errors.push('Unbalanced brackets: missing closing');
-
-      // Very naive LaTeX command format check
-      const unmatchedBraces = (text.match(/\{/g) || []).length !== (text.match(/\}/g) || []).length;
-      if (unmatchedBraces) errors.push('Mismatched curly braces');
-
-      if (/\\invalid\b/.test(text)) warnings.push('Contains unsupported command \\invalid');
-
-      return { errors, warnings };
+        
+        return tokens;
     }
-  }
+    
+    buildAST(tokens) {
+        // بناء شجرة التحليل التركيبي
+        // هذا مبسط - في التطبيق الحقيقي نحتاج parser أعقد
+        return {
+            type: 'expression',
+            tokens: tokens,
+            structure: this.analyzeStructure(tokens)
+        };
+    }
+    
+    analyzeStructure(tokens) {
+        const structure = {
+            functions: [],
+            variables: [],
+            operators: [],
+            commands: []
+        };
+        
+        tokens.forEach(token => {
+            switch (token.type) {
+                case this.tokenTypes.FUNCTION:
+                    structure.functions.push(token);
+                    break;
+                case this.tokenTypes.VARIABLE:
+                    structure.variables.push(token);
+                    break;
+                case this.tokenTypes.OPERATOR:
+                    structure.operators.push(token);
+                    break;
+                case this.tokenTypes.LATEX_COMMAND:
+                    structure.commands.push(token);
+                    break;
+            }
+        });
+        
+        return structure;
+    }
+}
 
-  return Parser;
-});
+// UMD-style export to expose the parser in both browser and Node environments
+;(function (root) {
+  try {
+    if (typeof module === 'object' && module.exports) {
+      module.exports = MathParser;
+    } else if (typeof root !== 'undefined') {
+      root.ArabicMathParser = root.ArabicMathParser || MathParser;
+    }
+  } catch (_) { /* noop */ }
+})(typeof self !== 'undefined' ? self : this);

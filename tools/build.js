@@ -16,6 +16,9 @@ async function build() {
     'src/core/parser.js',
     'src/core/renderer.js',
     'src/utils/rtl-handler.js',
+    'src/utils/string-utils.js',
+    'src/utils/math-utils.js',
+    'src/utils/font-loader.js',
     'src/ArabicMath.js'
   ];
 
@@ -39,7 +42,8 @@ async function build() {
   // CSS: combine base + themes
   const cssFiles = [
     'src/styles/arabic-math.css',
-    'src/styles/themes.css'
+    'src/styles/themes.css',
+    'src/styles/fonts/font-loader.css'
   ];
   let combinedCSS = '';
   for (const f of cssFiles) {

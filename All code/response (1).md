@@ -222,6 +222,7 @@ class MathParser {
 }
 ```
 
+
 ### **2. renderer.js - محرك العرض**
 
 ```javascript

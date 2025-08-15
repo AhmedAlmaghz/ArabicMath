@@ -1,4 +1,8 @@
-(function (root, factory) {
+/**
+ * معالج الكتابة من اليمين إلى اليسار
+ * يتعامل مع تعقيدات RTL في المعادلات الرياضية
+ */
+;(function (root, factory) {
   if (typeof module === 'object' && module.exports) {
     module.exports = factory();
   } else {
@@ -9,42 +13,65 @@
 
   class Renderer {
     constructor(options = {}) {
-      this.options = Object.assign({ displayMode: true }, options);
+      this.options = Object.assign({
+        // future options
+      }, options);
     }
 
+    // Render AST safely to the target element
+    // context: { targetElement, options, version, equation }
     render(ast, context) {
       const el = context && context.targetElement;
-      if (!el) throw new Error('Renderer requires a target element');
+      if (!el) throw new Error('Renderer: targetElement is required');
 
-      // Ensure RTL container
-      el.setAttribute('dir', 'rtl');
-      el.classList.add('arabic-math');
+      // Clear target
+      while (el.firstChild) el.removeChild(el.firstChild);
 
-      const raw = ast && ast.raw ? ast.raw : '';
-      const mode = (context && context.options && context.options.mathRenderer) || 'none';
+      const engine = (context.options && context.options.mathRenderer) || 'none';
+      const tex = (context && typeof context.equation === 'string') ? context.equation : this._textFromAST(ast);
 
-      if (mode === 'mathjax' && typeof window !== 'undefined' && window.MathJax) {
-        el.innerHTML = raw;
-        if (typeof window.MathJax.typesetPromise === 'function') {
-          return window.MathJax.typesetPromise([el]).catch(() => {});
-        } else if (window.MathJax.Hub && window.MathJax.Hub.Queue) {
-          window.MathJax.Hub.Queue(['Typeset', window.MathJax.Hub, el]);
+      if (engine === 'mathjax') {
+        // Ensure TeX delimiters \( ... \)
+        const wrapped = /^\s*\\\(|\\\[|\$/.test(tex) ? tex : `\\(${tex}\\)`;
+        const span = document.createElement('span');
+        span.textContent = wrapped;
+        el.appendChild(span);
+        // Trigger MathJax v3/v4 typeset if available
+        if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+          try { return MathJax.typesetPromise([el]).then(() => el); } catch (_) { /* noop */ }
         }
-        return el;
+      } else if (engine === 'katex') {
+        if (typeof katex !== 'undefined' && katex.render) {
+          try { katex.render(tex, el, { throwOnError: false, trust: false }); }
+          catch (_) { el.textContent = tex; }
+        } else {
+          el.textContent = tex;
+        }
+      } else {
+        // Simple safe text rendering with Arabic translation
+        const span = document.createElement('span');
+        span.className = 'arabic-math-text';
+        // Use the translated equation text instead of AST
+        span.textContent = tex;
+        el.appendChild(span);
       }
 
-      if (mode === 'katex' && typeof window !== 'undefined' && window.katex) {
-        try {
-          window.katex.render(raw, el, { displayMode: this.options.displayMode, throwOnError: false });
-        } catch (e) {
-          el.textContent = raw;
-        }
-        return el;
+      // Basic RTL styling if requested
+      if (context.options && context.options.rtl) {
+        el.style.direction = 'rtl';
+        el.style.textAlign = 'right';
       }
 
-      // Fallback simple text rendering
-      el.textContent = raw;
       return el;
+    }
+
+    _textFromAST(ast) {
+      try {
+        if (ast && Array.isArray(ast.tokens)) {
+          return ast.tokens.map(t => t && t.value != null ? String(t.value) : '').join(' ').trim();
+        }
+      } catch (_) {}
+      return '';
     }
   }
 

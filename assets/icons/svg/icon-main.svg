@@ -1,0 +1,20 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#667eea"/>
+            <stop offset="100%" style="stop-color:#764ba2"/>
+        </linearGradient>
+        <filter id="shadow">
+            <feDropShadow dx="2" dy="2" stdDeviation="2" flood-opacity="0.3"/>
+        </filter>
+    </defs>
+    
+    <circle cx="32" cy="32" r="30" fill="url(#gradient)" filter="url(#shadow)"/>
+    
+    <text x="32" y="42" font-family="Arial, sans-serif" 
+          font-size="28" font-weight="bold" 
+          text-anchor="middle" fill="white">∑</text>
+    
+    <text x="32" y="55" font-family="Arial, sans-serif" 
+          font-size="8" text-anchor="middle" fill="white" opacity="0.8">عربي</text>
+</svg>

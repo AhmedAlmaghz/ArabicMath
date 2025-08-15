@@ -1,79 +1,496 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>العرض التفاعلي - Arabic Math JS</title>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js" defer></script>
-  <link rel="stylesheet" href="../src/styles/arabic-math.css" />
-  <link rel="stylesheet" href="../src/styles/themes.css" />
-  <style>
-    body { font-family: 'Amiri', serif; background: #f6f8fb; margin: 0; padding: 24px; }
-    .container { max-width: 1000px; margin: 0 auto; background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 8px 24px rgba(0,0,0,.06); }
-    h1 { margin-top: 0; background: linear-gradient(45deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    textarea { width: 100%; min-height: 120px; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; font-size: 16px; direction: ltr; }
-    .output { border: 1px dashed #cbd5e1; border-radius: 8px; padding: 16px; min-height: 120px; background: #fafafa; }
-    .controls { display: flex; gap: 8px; align-items: center; margin: 12px 0; }
-    .controls label { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; }
-    .btn { background: #4f46e5; color: #fff; border: none; border-radius: 8px; padding: 10px 14px; cursor: pointer; }
-    .btn.secondary { background: #64748b; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>العرض التفاعلي - مكتبة الرياضيات العربية</title>
+    <link rel="stylesheet" href="./arabic-math/arabic.css">
+    <link href="http://fonts.googleapis.com/css?family=Amiri&amp;subset=arabic" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css" rel="stylesheet" type="text/css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Amiri', serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .demo-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+        
+        .demo-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+        
+        .equation-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Courier New', monospace;
+            direction: ltr;
+            text-align: left;
+            transition: border-color 0.3s ease;
+        }
+        
+        .equation-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .output-box {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 80px;
+            margin: 15px 0;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+        
+        .btn-secondary:hover {
+            background: #cbd5e0;
+        }
+        
+        .example-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .example-item {
+            background: #f7fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            direction: ltr;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+        
+        .example-item:hover {
+            background: #edf2f7;
+            border-color: #cbd5e0;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+        
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Arabic Math JS — العرض التفاعلي</h1>
-
-    <div class="controls">
-      <label><input type="checkbox" id="auto-translate" checked /> ترجمة تلقائية</label>
-      <label><input type="checkbox" id="rtl" checked /> اتجاه RTL</label>
-      <label>المحرك:
-        <select id="engine">
-          <option value="none">بدون</option>
-          <option value="mathjax">MathJax</option>
-          <option value="katex">KaTeX</option>
-        </select>
-      </label>
-      <button id="render" class="btn">عرض</button>
-      <button id="clear" class="btn secondary">مسح</button>
+    <div class="container">
+        <div class="header">
+            <h1>🔢 العرض التفاعلي</h1>
+            <p>اختبر مكتبة الرياضيات العربية مباشرة في متصفحك</p>
+            <p style="margin-top:10px">
+                <a class="btn btn-secondary" href="./commands-reference.html">📖 مرجع أوامر TeX</a>
+            </p>
+        </div>
+        
+        <div class="demo-grid">
+            <!-- مترجم فوري -->
+            <div class="demo-card">
+                <h3>🚀 المترجم الفوري</h3>
+                <div class="input-group">
+                    <label for="live-input">اكتب معادلة بالإنجليزية:</label>
+                    <textarea id="live-input" class="equation-input" rows="3" 
+                        placeholder="مثال: sin(x) + cos(y) = 1"></textarea>
+                </div>
+                <div class="output-box arabic-math" id="live-output">
+                    اكتب معادلة أعلاه لتراها مترجمة هنا...
+                </div>
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="translateLive()">ترجم الآن</button>
+                    <button class="btn btn-secondary" onclick="clearLive()">مسح</button>
+                    <label style="display:inline-flex;align-items:center;gap:6px">
+                      <input type="checkbox" id="arabic-mode" checked> عرض بالعربية (arabic-mathjax)
+                    </label>
+                </div>
+            </div>
+            
+            <!-- مكتبة الأمثلة -->
+            <div class="demo-card">
+                <h3>📚 مكتبة الأمثلة</h3>
+                <p>اختر مثالاً لترجمته:</p>
+                <div class="example-list" id="example-list">
+                    <!-- ستملأ بواسطة JavaScript -->
+                </div>
+            </div>
+            
+            <!-- مقارن جنباً إلى جنب -->
+            <div class="demo-card">
+                <h3>⚖️ المقارن</h3>
+                <div class="input-group">
+                    <label for="compare-input">معادلة للمقارنة:</label>
+                    <input type="text" id="compare-input" class="equation-input" 
+                        placeholder="\lim_{x \to 0} \frac{\sin x}{x}">
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <strong>الأصل:</strong>
+                        <div class="output-box" id="original-output" style="direction: ltr; text-align: left;"></div>
+                    </div>
+                    <div>
+                        <strong>المترجم:</strong>
+                        <div class="output-box arabic-math" id="translated-output"></div>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="compareEquations()">قارن</button>
+            </div>
+            
+            <!-- أدوات التحليل -->
+            <div class="demo-card">
+                <h3>🔍 محلل المعادلات</h3>
+                <div class="input-group">
+                    <label for="analyze-input">معادلة للتحليل:</label>
+                    <input type="text" id="analyze-input" class="equation-input" 
+                        placeholder="f(x) = sin(x) + cos(y)">
+                </div>
+                <div class="output-box" id="analysis-output">
+                    نتائج التحليل ستظهر هنا...
+                </div>
+                <button class="btn btn-primary" onclick="analyzeEquation()">حلل</button>
+            </div>
+        </div>
+        
+        <!-- تم إزالة قسم الإحصائيات -->
     </div>
+    
+    <!-- تحميل المكتبات (MathJax v2 + arabic-mathjax) -->
+    <script type="text/x-mathjax-config">
+      MathJax.Ajax.config.path["arabic"] = "./arabic-math";
+      MathJax.Hub.Config({
+        showMathMenu: false,
+        TeX: {
+          extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+        },
+        tex2jax: {
+          inlineMath: [["\\(","\\)"], ["$","$"]],
+          displayMath: [["\\[","\\]"], ["$$","$$"]],
+          processEscapes: true
+        },
+        extensions: [
+          "[arabic]/arabic.js",
+        ],
+        'HTML-CSS': {
+            undefinedFamily: 'Amiri, Droid Arabic Naskh'
+        }
+      });
+    </script>
 
-    <div class="row">
-      <div>
-        <label>المعادلة</label>
-        <textarea id="equation">int_0^1 x^2 dx = 1/3</textarea>
-      </div>
-      <div>
-        <label>الناتج</label>
-        <div id="output" class="output arabic-math theme-classic"></div>
-      </div>
-    </div>
-  </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_HTMLorMML-full"></script>
+    <!-- <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script> -->
+    <!-- KaTeX removed; arabic-mathjax loaded via MathJax paths -->
+    
+    <script>
+        // إعداد بسيط لاستخدام MathJax v2 + arabic-mathjax فقط
+        document.addEventListener('DOMContentLoaded', async function() {
+            // انتظار تحميل MathJax
+            while (typeof MathJax === 'undefined') {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            setupEventListeners();
+            loadExamples();
+        });
 
-  <script src="../src/dictionaries/symbols.js"></script>
-  <script src="../src/core/translator.js"></script>
-  <script src="../src/core/parser.js"></script>
-  <script src="../src/core/renderer.js"></script>
-  <script src="../src/utils/rtl-handler.js"></script>
-  <script src="../src/ArabicMath.js"></script>
-  <script>
-    const arabicMath = new ArabicMath({ rtl: true, autoTranslate: true, mathRenderer: 'none' });
+        // دوال مساعدة للعرض
+        function ensureDelimiters(tex) {
+            return /^\s*\\\(|\\\[|\$/.test(tex) ? tex : `\\(${tex}\\)`;
+        }
+        function hasArabicMacro(tex) {
+            return /\\alwaysar\b|\\ar\b/.test(tex);
+        }
+        function renderInto(el, tex, useArabic) {
+            const body = useArabic && !hasArabicMacro(tex) ? `\\alwaysar{${tex}}` : tex;
+            el.innerHTML = ensureDelimiters(body);
+            if (typeof MathJax !== 'undefined') {
+                if (MathJax.Hub && MathJax.Hub.Queue) {
+                    MathJax.Hub.Queue(['Typeset', MathJax.Hub, el]);
+                } else if (MathJax.typesetPromise) {
+                    MathJax.typesetPromise([el]);
+                }
+            }
+        }
+        
+        function setupEventListeners() {
+            // ترجمة فورية أثناء الكتابة
+            const liveInput = document.getElementById('live-input');
+            let timeoutId;
+            
+            liveInput.addEventListener('input', function() {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    if (this.value.trim()) {
+                        translateLive();
+                    }
+                }, 500);
+            });
+            
+            // مقارن فوري
+            const compareInput = document.getElementById('compare-input');
+            compareInput.addEventListener('input', function() {
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(() => {
+                    if (this.value.trim()) {
+                        compareEquations();
+                    }
+                }, 500);
+            });
 
-    document.getElementById('render').addEventListener('click', () => run());
-    document.getElementById('clear').addEventListener('click', () => {
-      document.getElementById('output').innerHTML = '';
-    });
-
-    function run() {
-      const eq = document.getElementById('equation').value;
-      const rtl = document.getElementById('rtl').checked;
-      const auto = document.getElementById('auto-translate').checked;
-      const engine = document.getElementById('engine').value;
-      arabicMath.setOptions({ rtl, autoTranslate: auto, mathRenderer: engine });
-      arabicMath.render('#output', eq);
-    }
-
-    run();
-  </script>
+            // خيار العرض بالعربية
+            const arabicCb = document.getElementById('arabic-mode');
+            if (arabicCb) {
+                arabicCb.addEventListener('change', () => {
+                    if (document.getElementById('live-input').value.trim()) translateLive();
+                });
+            }
+        }
+        
+        function loadExamples() {
+            const examples = [
+                { name: 'دالة مثلثية', eq: '\\sin(x)^2 + \\cos(y)^2 = 1' },
+                { name: 'نهاية', eq: '\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1' },
+                { name: 'تكامل', eq: '\\int_0^1 x^2 dx = \\frac{1}{3}' },
+                { name: 'مشتقة', eq: '\\frac{d}{dx}[x^2] = 2x' },
+                { name: 'مجموع', eq: '\\sum_{n=1}^{\\infty} \\frac{1}{n^2} = \\frac{\\pi^2}{6}' },
+                { name: 'لوغاريتم', eq: '\\ln(e^x) = x' },
+                { name: 'لوغاريتم', eq: '\\log(e^x) = x' },
+                { name: 'معادلة معقدة', eq: 'e^{i\\pi} + 1 = 0' },
+                { name: 'مصفوفة', eq: '\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}' }
+            ];
+            
+            const exampleList = document.getElementById('example-list');
+            examples.forEach(example => {
+                const item = document.createElement('div');
+                item.className = 'example-item';
+                item.innerHTML = `<strong>${example.name}:</strong> ${example.eq}`;
+                item.onclick = () => loadExample(example.eq);
+                exampleList.appendChild(item);
+            });
+        }
+        
+        function loadExample(equation) {
+            document.getElementById('live-input').value = equation;
+            translateLive();
+        }
+        
+        async function translateLive() {
+            const input = document.getElementById('live-input').value;
+            const output = document.getElementById('live-output');
+            
+            if (!input.trim()) {
+                output.innerHTML = 'اكتب معادلة أعلاه لتراها مترجمة هنا...';
+                return;
+            }
+            
+            try {
+                const useArabic = (document.getElementById('arabic-mode')?.checked ?? true);
+                renderInto(output, input, useArabic);
+            } catch (error) {
+                output.innerHTML = `<div class="math-error">خطأ: ${error.message}</div>`;
+            }
+        }
+        
+        function clearLive() {
+            document.getElementById('live-input').value = '';
+            document.getElementById('live-output').innerHTML = 'اكتب معادلة أعلاه لتراها مترجمة هنا...';
+        }
+        
+        async function compareEquations() {
+            const input = document.getElementById('compare-input').value;
+            const originalOutput = document.getElementById('original-output');
+            const translatedOutput = document.getElementById('translated-output');
+            
+            if (!input.trim()) return;
+            
+            // الأصل (بدون العربية)
+            renderInto(originalOutput, input, false);
+            // الترجمة بالعربية باستخدام arabic-mathjax
+            renderInto(translatedOutput, input, true);
+        }
+        
+        // تم إزالة محلل المعادلات (يعتمد على مشروع خارجي)
+        
+        function translateType(type) {
+            const types = {
+                'limit': 'نهاية',
+                'integral': 'تكامل',
+                'derivative': 'مشتقة',
+                'summation': 'مجموع',
+                'product': 'جداء',
+                'matrix': 'مصفوفة',
+                'equation': 'معادلة',
+                'inequality': 'متباينة',
+                'function': 'دالة',
+                'expression': 'عبارة رياضية'
+            };
+            return types[type] || type;
+        }
+        
+        function translateLanguage(lang) {
+            const languages = {
+                'arabic': 'عربي',
+                'english': 'إنجليزي',
+                'mixed': 'مختلط'
+            };
+            return languages[lang] || lang;
+        }
+        
+        // تم إزالة إحصائيات الاستخدام
+        
+        // إضافة تأثيرات بصرية
+        function addVisualEffects() {
+            // تأثير الكتابة
+            const equations = document.querySelectorAll('.arabic-math');
+            equations.forEach(eq => {
+                eq.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.05)';
+                    this.style.transition = 'transform 0.3s ease';
+                });
+                
+                eq.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+        }
+        
+        // تهيئة التأثيرات عند تحميل الصفحة
+        setTimeout(addVisualEffects, 1000);
+    </script>
 </body>
 </html>

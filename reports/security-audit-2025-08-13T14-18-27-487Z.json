@@ -1,0 +1,166 @@
+{
+  "timestamp": "2025-08-13T14:18:27.485Z",
+  "issues": [],
+  "warnings": [
+    {
+      "type": "code",
+      "file": "examples\\integration-examples.js",
+      "message": "وجود script tags - تأكد من الأمان",
+      "matches": 3,
+      "severity": "medium"
+    },
+    {
+      "type": "code",
+      "file": "examples\\interactive-demo.html",
+      "message": "وجود script tags - تأكد من الأمان",
+      "matches": 9,
+      "severity": "medium"
+    },
+    {
+      "type": "config",
+      "message": ".gitignore لا يحتوي على .env",
+      "pattern": ".env"
+    },
+    {
+      "type": "config",
+      "message": ".gitignore لا يحتوي على *.key",
+      "pattern": "*.key"
+    },
+    {
+      "type": "config",
+      "message": ".gitignore لا يحتوي على *.pem",
+      "pattern": "*.pem"
+    },
+    {
+      "type": "config",
+      "message": ".gitignore لا يحتوي على dist",
+      "pattern": "dist"
+    }
+  ],
+  "info": [
+    {
+      "type": "dependency",
+      "message": "الحزمة chokidar تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "chokidar",
+      "version": "^3.6.0"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة cors تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "cors",
+      "version": "^2.8.5"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة express تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "express",
+      "version": "^4.19.2"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة ws تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "ws",
+      "version": "^8.18.0"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة @babel/core تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "@babel/core",
+      "version": "^7.25.0"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة clean-css تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "clean-css",
+      "version": "^5.3.3"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة rollup تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "rollup",
+      "version": "^4.18.0"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة sass تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "sass",
+      "version": "^1.77.0"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة terser تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "terser",
+      "version": "^5.31.0"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة typescript تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "typescript",
+      "version": "^5.5.4"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة webpack تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "webpack",
+      "version": "^5.93.0"
+    },
+    {
+      "type": "dependency",
+      "message": "الحزمة webpack-cli تستخدم نطاق إصدارات - تأكد من الأمان",
+      "package": "webpack-cli",
+      "version": "^5.1.4"
+    },
+    {
+      "type": "code",
+      "file": "src\\core\\parser.js",
+      "message": "تأكد من تنظيف template literals",
+      "matches": 1,
+      "severity": "low"
+    },
+    {
+      "type": "code",
+      "file": "src\\core\\translator.js",
+      "message": "تأكد من تنظيف template literals",
+      "matches": 4,
+      "severity": "low"
+    },
+    {
+      "type": "code",
+      "file": "src\\styles\\fonts\\font-loader.js",
+      "message": "تأكد من تنظيف template literals",
+      "matches": 4,
+      "severity": "low"
+    },
+    {
+      "type": "code",
+      "file": "src\\utils\\rtl-handler.js",
+      "message": "تأكد من تنظيف template literals",
+      "matches": 2,
+      "severity": "low"
+    },
+    {
+      "type": "code",
+      "file": "examples\\integration-examples.js",
+      "message": "تأكد من تنظيف template literals",
+      "matches": 2,
+      "severity": "low"
+    },
+    {
+      "type": "logging",
+      "file": "examples\\integration-examples.js",
+      "message": "وجود console.log في كود الإنتاج",
+      "severity": "low"
+    },
+    {
+      "type": "build",
+      "message": "تم إنشاء checksums للملفات المبنية",
+      "checksums": 2
+    }
+  ],
+  "score": 51,
+  "summary": {
+    "totalIssues": 0,
+    "totalWarnings": 6,
+    "totalInfo": 19
+  }
+}

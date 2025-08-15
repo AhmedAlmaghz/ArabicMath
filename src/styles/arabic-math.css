@@ -21,3 +21,24 @@
 /* Utils */
 .rtl { direction: rtl; unicode-bidi: isolate-override; }
 .ltr { direction: ltr; unicode-bidi: isolate; }
+
+/* Fractions */
+.arabic-math .am-frac { vertical-align: middle; text-align: center; }
+.arabic-math .am-frac .num { display: block; padding: 0 4px; }
+.arabic-math .am-frac .bar { display: block; border-top: 2px solid #2c3e50; margin: 0 2px; }
+.arabic-math .am-frac .den { display: block; padding: 0 4px; }
+
+/* Square root */
+.arabic-math .am-sqrt { display: inline-flex; align-items: stretch; gap: 4px; }
+.arabic-math .am-sqrt .radical { font-weight: 700; }
+.arabic-math .am-sqrt .body { border-top: 2px solid #2c3e50; padding: 0 6px; }
+
+/* Limit */
+.arabic-math .am-limit { display: inline-flex; align-items: baseline; gap: 6px; }
+.arabic-math .am-limit .lim { font-weight: 700; }
+.arabic-math .am-limit .sub { font-size: 0.8em; color: #475569; }
+.arabic-math .am-limit .body { font-size: 1em; }
+
+/* Matrix */
+.arabic-math table.am-matrix { border-collapse: collapse; border: 1px solid #cbd5e1; background: #fff; }
+.arabic-math table.am-matrix td { border: 1px solid #e2e8f0; padding: 4px 8px; }

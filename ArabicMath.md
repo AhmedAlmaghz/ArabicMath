@@ -1012,6 +1012,7 @@ class MathParser {
 }
 ```
 
+
 ### **2. renderer.js - محرك العرض**
 
 ```javascript
@@ -1140,6 +1141,7 @@ class MathRenderer {
     }
 }
 ```
+
 
 ### **3. rtl-handler.js - معالج الاتجاه**
 

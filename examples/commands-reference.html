@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مرجع أوامر TeX — ArabicMath</title>
+  <link rel="stylesheet" href="./arabic-math/arabic.css">
+  <link href="https://fonts.googleapis.com/css?family=Amiri&amp;subset=arabic" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/earlyaccess/droidarabicnaskh.css" rel="stylesheet" type="text/css">
+
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Amiri, "Noto Naskh Arabic", Arial, sans-serif; background: #f5f6fb; color:#222; margin:0; }
+    header { background: linear-gradient(135deg, #6a5acd, #7c4dff); color:#fff; padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+    header .wrap { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    header h1 { margin:0; font-size: 20px; }
+    header a { color:#fff; opacity:.9; text-decoration:none; border:1px solid rgba(255,255,255,.35); padding:6px 10px; border-radius:8px; }
+    main { padding: 20px; max-width: 1200px; margin: 0 auto; }
+
+    .card { background:#fff; border-radius:14px; padding:18px; box-shadow:0 6px 20px rgba(0,0,0,.06); }
+    .note { color:#555; font-size: 13px; margin: 8px 0 16px; }
+
+    table { width:100%; border-collapse: collapse; }
+    thead th { background:#f0f2ff; color:#333; text-align:center; padding:10px; font-weight:700; border-bottom:2px solid #e5e7f7; }
+    tbody td { padding:10px 8px; border-bottom:1px solid #eee; vertical-align: middle; }
+    tbody tr:hover { background:#fafbff; }
+    td.code { font-family: "SFMono-Regular", Menlo, Consolas, monospace; direction:ltr; text-align:left; white-space:nowrap; }
+    td.render, td.arabic { text-align:center; }
+
+    .section-row td { background:#fafbff; font-weight:700; color:#444; border-top:2px solid #e5e7f7; }
+
+    .footer { margin-top:18px; color:#666; font-size:12px; text-align:center; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>مرجع أوامر TeX (العرض | العربية)</h1>
+      <nav>
+        <a href="./interactive-demo.html">العودة إلى العرض التفاعلي</a>
+      </nav>
+    </div>
+  </header>
+  <main>
+    <div class="card">
+      <div class="note">يعرض هذا المرجع عيّنات من أوامر TeX مع مخرجاتها المرئية (MathJax) ومكافئها العربي باستخدام العارض الداخلي لـ ArabicMath.</div>
+      <table id="commands-table">
+        <thead>
+          <tr>
+            <th>TeX</th>
+            <th>العرض (MathJax)</th>
+            <th>العربية (ArabicMath)</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div class="footer">يمكن توسيع هذه القائمة بسهولة بإضافة المزيد من الأمثلة في الشيفرة أدناه.</div>
+    </div>
+  </main>
+
+  <!-- المكتبات -->
+    <!-- تحميل المكتبات (MathJax v2 + arabic-mathjax) -->
+    <script type="text/x-mathjax-config">
+      MathJax.Ajax.config.path["arabic"] = "./arabic-math";
+      MathJax.Hub.Config({
+        showMathMenu: false,
+        TeX: {
+          extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+        },
+        tex2jax: {
+          inlineMath: [["\\(","\\)"], ["$","$"]],
+          displayMath: [["\\[","\\]"], ["$$","$$"]],
+          processEscapes: true
+        },
+        extensions: [
+          "[arabic]/arabic.js",
+        ],
+        'HTML-CSS': {
+            undefinedFamily: 'Amiri, Droid Arabic Naskh'
+        }
+      });
+    </script>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@2/MathJax.js?config=TeX-MML-AM_HTMLorMML-full"></script>
+
+  <script>
+    const SECTIONS = [
+      {
+        title: 'دوال أساسية',
+        items: [
+          { tex: 'x = y' },
+          { tex: 'f(x) = \\sin x + \\cos x' },
+          { tex: '\\tan x = \\frac{\\sin x}{\\cos x}' },
+          { tex: '\\ln(e^x) = x' },
+          { tex: 'e^{i\\pi} + 1 = 0' },
+        ]
+      },
+      {
+        title: 'نهايات ومشتقات وتكاملات',
+        items: [
+          { tex: '\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1' },
+          { tex: '\\frac{d}{dx}[x^2] = 2x' },
+          { tex: '\\int_0^1 x^2 \\, dx = \\frac{1}{3}' },
+          { tex: '\\sum_{n=1}^{\\infty} \\frac{1}{n^2} = \\frac{\\pi^2}{6}' },
+          { tex: '\\prod_{k=1}^{n} k = n!' },
+        ]
+      },
+      {
+        title: 'مصفوفات وأقواس',
+        items: [
+          { tex: '\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}' },
+          { tex: '\\left( \\frac{a}{b} \\right)' },
+          { tex: '\\left[ x + y \\right]' },
+          { tex: '\\left\\{ x \\in \\mathbb{R} \\right\\}' },
+        ]
+      },
+      {
+        title: 'علاقات ومجموعات',
+        items: [
+          { tex: 'a \\le b,\\ \ a \\ge b,\\ \ a \\ne b' },
+          { tex: 'A \\cup B,\\ \ A \\cap B,\\ \ A \\subset B' },
+          { tex: 'x \\in A,\\ \ x \\notin B' },
+          { tex: 'A \\setminus B' },
+        ]
+      },
+      {
+        title: 'حروف يونانية',
+        items: [
+          { tex: '\\alpha, \\beta, \\gamma, \\Delta, \\theta, \\lambda, \\mu, \\pi, \\sigma, \\phi, \\omega' },
+        ]
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // انتظر MathJax أن يتهيأ
+      while (typeof MathJax === 'undefined') {
+        await new Promise(r => setTimeout(r, 60));
+      }
+
+
+       // دوال مساعدة للعرض
+       function ensureDelimiters(tex) {
+            return /^\s*\\\(|\\\[|\$/.test(tex) ? tex : `\\(${tex}\\)`;
+        }
+        function hasArabicMacro(tex) {
+            return /\\alwaysar\b|\\ar\b/.test(tex);
+        }
+        function renderInto(el, tex, useArabic) {
+            const body = useArabic && !hasArabicMacro(tex) ? `\\alwaysar{${tex}}` : tex;
+            el.innerHTML = ensureDelimiters(body);
+            if (typeof MathJax !== 'undefined') {
+                if (MathJax.Hub && MathJax.Hub.Queue) {
+                    MathJax.Hub.Queue(['Typeset', MathJax.Hub, el]);
+                } else if (MathJax.typesetPromise) {
+                    MathJax.typesetPromise([el]);
+                }
+            }
+        }
+
+      // ============================================ End
+      const tbody = document.querySelector('#commands-table tbody');
+
+      for (const section of SECTIONS) {
+        const sRow = document.createElement('tr');
+        sRow.className = 'section-row';
+        sRow.innerHTML = `<td colspan="3">${section.title}</td>`;
+        tbody.appendChild(sRow);
+
+        for (const item of section.items) {
+          const tr = document.createElement('tr');
+          const input_tex=`${item.tex}`;
+
+          const tdCode = document.createElement('td');
+          tdCode.className = 'code';
+          tdCode.textContent = item.tex;
+
+          const tdRender = document.createElement('td');
+          tdRender.className = 'render';
+          const mj = document.createElement('span');
+          mj.textContent = `\\(${item.tex}\\)`;
+         // renderInto(mj, input_tex, false);
+          tdRender.appendChild(mj);
+
+          const tdArabic = document.createElement('td');
+          tdArabic.className = 'arabic';
+          const arabicBox = document.createElement('div');
+          arabicBox.style.direction = 'rtl';
+          arabicBox.style.textAlign = 'right';
+
+          renderInto(arabicBox, input_tex, true);
+          tdArabic.appendChild(arabicBox);
+
+          tr.appendChild(tdCode);
+          tr.appendChild(tdRender);
+          tr.appendChild(tdArabic);
+          tbody.appendChild(tr);
+
+       
+        }
+      }
+
+      try {
+        const renderCells = Array.from(document.querySelectorAll('.render'));
+        await MathJax.typesetPromise(renderCells);
+      } catch (e) {}
+    });
+  </script>
+</body>
+</html>

@@ -215,7 +215,8 @@ global.document = window.document;
 // تحميل المكتبة
 const ArabicMath = require('arabic-math-js');
 
-const app = express();napp.use(express.json());
+const app = express();
+app.use(express.json());
 
 // نقطة نهاية لترجمة المعادلات
 app.post('/translate', async (req, res) => {
@@ -341,9 +342,9 @@ class ArabicMathPlugin {
     public function enqueue_scripts() {
         wp_enqueue_script(
             'mathjax',
-            'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+            'https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js',
             array(),
-            '3.0.0',
+            '4.0.0',
             true
         );
         
@@ -411,14 +412,12 @@ new ArabicMathPlugin();
 `;
 
 // تصدير الأمثلة
-if (typeof window !== 'undefined') {
-  window.IntegrationExamples = {
-      React: ReactExample,
-      Vue: VueExample,
-      Angular: AngularExample,
-      Svelte: SvelteExample,
-      NodeJS: NodeJSExample,
-      Electron: ElectronExample,
-      WordPress: WordPressExample
-  };
-}
+window.IntegrationExamples = {
+    React: ReactExample,
+    Vue: VueExample,
+    Angular: AngularExample,
+    Svelte: SvelteExample,
+    NodeJS: NodeJSExample,
+    Electron: ElectronExample,
+    WordPress: WordPressExample
+};
